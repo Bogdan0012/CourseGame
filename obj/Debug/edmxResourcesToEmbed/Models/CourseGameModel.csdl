@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="db_a8ec2b_bogdangamera001Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ItemName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="ItemURI" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Damage" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleId" Type="Int32" />
+    <Property Name="HP" Type="Int32" />
+    <Property Name="IsItemTaken" Type="Boolean" />
+    <Property Name="AssetURI" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Score" Type="Int32" />
+    <NavigationProperty Name="Role" Relationship="Self.FK__Persons__RoleId__1D7B6025" FromRole="Persons" ToRole="Roles" />
+    <NavigationProperty Name="Profiles" Relationship="Self.FK__Profiles__Score__2057CCD0" FromRole="Persons" ToRole="Profiles" />
+  </EntityType>
+  <EntityType Name="Profile">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PlayerName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="TimeInGame" Type="Time" Precision="7" />
+    <Property Name="Score" Type="Int32" />
+    <NavigationProperty Name="Person" Relationship="Self.FK__Profiles__Score__2057CCD0" FromRole="Profiles" ToRole="Persons" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Persons" Relationship="Self.FK__Persons__RoleId__1D7B6025" FromRole="Roles" ToRole="Persons" />
+  </EntityType>
+  <EntityType Name="Skill">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SkillName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="SkillDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Damage" Type="Int32" />
+  </EntityType>
+  <Association Name="FK__Persons__RoleId__1D7B6025">
+    <End Role="Roles" Type="Self.Role" Multiplicity="0..1" />
+    <End Role="Persons" Type="Self.Person" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Persons">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Profiles__Score__2057CCD0">
+    <End Role="Persons" Type="Self.Person" Multiplicity="0..1" />
+    <End Role="Profiles" Type="Self.Profile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Persons">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Profiles">
+        <PropertyRef Name="Score" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="db_a8ec2b_bogdangamera001Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Items" EntityType="Self.Item" />
+    <EntitySet Name="Persons" EntityType="Self.Person" />
+    <EntitySet Name="Profiles" EntityType="Self.Profile" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="Skills" EntityType="Self.Skill" />
+    <AssociationSet Name="FK__Persons__RoleId__1D7B6025" Association="Self.FK__Persons__RoleId__1D7B6025">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Persons" EntitySet="Persons" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Profiles__Score__2057CCD0" Association="Self.FK__Profiles__Score__2057CCD0">
+      <End Role="Persons" EntitySet="Persons" />
+      <End Role="Profiles" EntitySet="Profiles" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

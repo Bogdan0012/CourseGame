@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CourseGame.Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Enemy">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Skin" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="HP" Type="Int32" />
+    <Property Name="Damage" Type="Int32" />
+    <Property Name="Points" Type="Int32" />
+    <Property Name="Speed" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AssetUri" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Damage" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Player">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="HP" Type="Int32" />
+    <Property Name="Skin" Type="Int32" />
+    <Property Name="Score" Type="Int32" />
+    <Property Name="TimeInGame" Type="Time" Precision="7" />
+    <Property Name="Progress" Type="Int32" />
+    <Property Name="IsBanned" Type="Boolean" />
+  </EntityType>
+  <EntityContainer Name="CourseGame_DbContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Enemies" EntityType="Self.Enemy" />
+    <EntitySet Name="Items" EntityType="Self.Item" />
+    <EntitySet Name="Players" EntityType="Self.Player" />
+  </EntityContainer>
+</Schema>
